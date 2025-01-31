@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, FC, ReactElement } from 'react'
 import { getShuffledSlots } from '../utils/helperFunctions'
 import { TILE_VARIETIES } from '../utils/constants'
 import { TileType } from '../types'
 
 const REPEAT_NUM = 2
 
-const FlipGame = () => {
+const FlipGame: FC = (): ReactElement => {
   const [tiles, setTiles] = useState<TileType[]>([])
   const [flippedIndices, setFlippedIndices] = useState<number[]>([])
   const [matchedIndices, setMatchedIndices] = useState<number[]>([])
@@ -19,6 +19,8 @@ const FlipGame = () => {
       if (tiles[flippedIndices[0]].name === tiles[flippedIndices[1]].name) {
         setMatchedIndices([...matchedIndices, flippedIndices[0], flippedIndices[1]])
       }
+      // Empty the flippedIndices when it reaches REPEAT_NUM
+      // This also helps to reverse flip after a sec when tiles don't match
       setTimeout(() => {
         setFlippedIndices([])
       }, 1000);
@@ -62,7 +64,7 @@ const FlipGame = () => {
 
       <section className="">
         {(matchedIndices.length === TILE_VARIETIES.length * REPEAT_NUM) && (
-          <div className="">You Won!</div>
+          <div className="text-gray-800 text-md mb-2">You Won!</div>
         )}
         <button
           className="border border-purple-400 bg-purple-200 py-2 px-4 rounded-md cursor-pointer"
