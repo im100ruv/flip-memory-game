@@ -37,7 +37,7 @@ const FlipGame = () => {
   }
 
   return (
-    <main className="flex flex-col gap-8 items-center pt-16 bg-purple-100 h-[100vh]">
+    <main className="flex flex-col gap-8 items-center py-16 bg-purple-100">
 
       <section className="text-center text-purple-700">
         <h1 className="text-6xl font-bold mb-2">Flippo</h1>
@@ -48,7 +48,7 @@ const FlipGame = () => {
         {tiles.map((tile, index) => (
           <div
             key={index}
-            className="w-24 h-24 flex items-center justify-center border border-purple-400 cursor-pointer rounded-sm transition-transform duration-300 bg-purple-200"
+            className={`w-24 h-24 p-4 flex items-center justify-center border border-purple-400 cursor-pointer rounded-sm bg-purple-200 transition-transform duration-200 ${flippedIndices.includes(index) || matchedIndices.includes(index) ? 'rotate-y-180' : ''}`}
             onClick={() => handleFlip(index)}
           >
             {(flippedIndices.includes(index) || matchedIndices.includes(index)) ? (
