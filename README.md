@@ -1,10 +1,10 @@
 # Flippo - A Memory Game
 
-Flippo is a memory game where a set of cards are shown and user clicks on a card to flip it to view the card type. If two consecutive flipped cards match, they remain flipped, else reverts to original position.
+[Flippo](https://flippo-eta.vercel.app/) is a memory game where a set of cards are shown and user clicks on a card to flip it to view the card type. If two consecutive flipped cards match, they remain flipped, else reverts to original position.
 
 If all cards are flipped and matched (pairs), user wins!
 
-This game is created using Vite setup.
+This game is created using Vite setup and is available [here](https://flippo-eta.vercel.app/).
 
 # React + TypeScript + Vite
 
