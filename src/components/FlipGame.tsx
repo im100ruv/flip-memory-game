@@ -1,4 +1,6 @@
 import { useEffect, useState, FC, ReactElement } from 'react'
+import { twMerge } from 'tailwind-merge'
+import Instructions from './Instructions'
 import { getShuffledSlots } from '../utils/helperFunctions'
 import { TILE_VARIETIES } from '../utils/constants'
 import { TileType } from '../types'
@@ -9,9 +11,11 @@ const FlipGame: FC = (): ReactElement => {
   const [tiles, setTiles] = useState<TileType[]>([])
   const [flippedIndices, setFlippedIndices] = useState<number[]>([])
   const [matchedIndices, setMatchedIndices] = useState<number[]>([])
+  const [showInstructions, setShowInstructions] = useState<boolean>(false)
 
   useEffect(() => {
     setupGame();
+    setShowInstructions(true)
   }, [])
 
   useEffect(() => {
@@ -28,6 +32,7 @@ const FlipGame: FC = (): ReactElement => {
   }, [flippedIndices.length])
 
   const setupGame = () => {
+    setShowInstructions(false)
     setFlippedIndices([])
     setMatchedIndices([])
     setTiles(getShuffledSlots(TILE_VARIETIES, REPEAT_NUM))
@@ -39,41 +44,46 @@ const FlipGame: FC = (): ReactElement => {
   }
 
   return (
-    <main className="flex flex-col gap-8 items-center py-16 bg-purple-100">
+    <>
+      {showInstructions && <Instructions onStart={setupGame} />}
+      <main className="flex flex-col gap-8 items-center py-16 bg-purple-100">
 
-      <section className="text-center text-purple-700">
-        <h1 className="text-6xl font-bold mb-2">Flippo</h1>
-        <h4 className="text-gray-600">A Memory Game</h4>
-      </section>
+        <section className="text-center text-purple-700">
+          <h1 className="text-6xl font-bold mb-2">Flippo</h1>
+          <h4 className="text-gray-600">A Memory Game <img className="w-3 h-3 inline cursor-pointer align-baseline" alt="info" src="/info.svg" onClick={() => setShowInstructions(true)} /></h4>
+        </section>
 
-      <section className="border-4 border-purple-600 grid grid-cols-4 gap-1 p-1 bg-white rounded-md">
-        {tiles.map((tile, index) => (
-          <div
-            key={index}
-            className={`w-24 h-24 p-4 flex items-center justify-center border border-purple-400 cursor-pointer rounded-sm bg-purple-200 transition-transform duration-200 ${flippedIndices.includes(index) || matchedIndices.includes(index) ? 'rotate-y-180' : ''}`}
-            onClick={() => handleFlip(index)}
+        <section className="border-4 border-purple-600 grid grid-cols-4 gap-1 p-1 bg-white rounded-md">
+          {tiles.map((tile, index) => (
+            <div
+              key={index}
+              // className={`w-24 h-24 p-4 flex items-center justify-center border border-purple-400 cursor-pointer rounded-sm bg-purple-200 hover:bg-purple-300 transition-transform duration-200 ${flippedIndices.includes(index) || matchedIndices.includes(index) ? 'rotate-y-180' : ''}`}
+              className={twMerge("w-24 h-24 p-4 flex items-center justify-center border border-purple-400 cursor-pointer rounded-sm bg-purple-200 hover:bg-purple-300 transition-transform duration-200", flippedIndices.includes(index) || matchedIndices.includes(index) ? 'rotate-y-180' : '')}
+              onClick={() => handleFlip(index)}
+            >
+              {(flippedIndices.includes(index) || matchedIndices.includes(index)) ? (
+                <img alt={`tile-${index + 1}-${tile.name}`} src={tile.url} />
+              ) : (
+                <img alt={`tile-${index + 1}-flip`} src="/Card-Flip.svg" />
+              )}
+            </div>
+          ))}
+        </section>
+
+        <section className="">
+          {(matchedIndices.length === TILE_VARIETIES.length * REPEAT_NUM) && (
+            <div className="text-gray-800 text-md mb-2">You Won!</div>
+          )}
+          <button
+            className="border border-purple-400 bg-purple-200 py-2 px-4 rounded-md cursor-pointer hover:bg-purple-300 active:scale-90 text-gray-800"
+            onClick={() => setupGame()}
           >
-            {(flippedIndices.includes(index) || matchedIndices.includes(index)) ? (
-              <img alt={`tile-${index + 1}-${tile.name}`} src={tile.url} />
-            ) : (
-              <img alt={`tile-${index + 1}-flip`} src="/Card-Flip.svg" />
-            )}
-          </div>
-        ))}
-      </section>
+            Reset
+          </button>
+        </section>
 
-      <section className="">
-        {(matchedIndices.length === TILE_VARIETIES.length * REPEAT_NUM) && (
-          <div className="text-gray-800 text-md mb-2">You Won!</div>
-        )}
-        <button
-          className="border border-purple-400 bg-purple-200 py-2 px-4 rounded-md cursor-pointer"
-          onClick={() => setupGame()}
-        >
-          Reset
-        </button>
-      </section>
-    </main>
+      </main>
+    </>
   )
 }
 
