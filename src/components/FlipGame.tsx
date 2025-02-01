@@ -50,7 +50,7 @@ const FlipGame: FC = (): ReactElement => {
 
         <section className="text-center text-purple-700">
           <h1 className="text-6xl font-bold mb-2">Flippo</h1>
-          <h4 className="text-gray-600">A Memory Game <img className="w-3 h-3 inline cursor-pointer align-baseline" alt="info" src="/info.svg" onClick={() => setShowInstructions(true)} /></h4>
+          <div className="text-gray-600">A Memory Game <img className="w-3 h-3 inline cursor-pointer align-baseline" alt="info" src="/info.svg" onClick={() => setShowInstructions(true)} /></div>
         </section>
 
         <section className="border-4 border-purple-600 grid grid-cols-4 gap-1 p-1 bg-white rounded-md">
@@ -58,7 +58,7 @@ const FlipGame: FC = (): ReactElement => {
             <div
               key={index}
               // className={`w-24 h-24 p-4 flex items-center justify-center border border-purple-400 cursor-pointer rounded-sm bg-purple-200 hover:bg-purple-300 transition-transform duration-200 ${flippedIndices.includes(index) || matchedIndices.includes(index) ? 'rotate-y-180' : ''}`}
-              className={twMerge("w-24 h-24 p-4 flex items-center justify-center border border-purple-400 cursor-pointer rounded-sm bg-purple-200 hover:bg-purple-300 transition-transform duration-200", flippedIndices.includes(index) || matchedIndices.includes(index) ? 'rotate-y-180' : '')}
+              className={twMerge("xs:w-16 xs:h-16 md:w-24 md:h-24 p-4 flex items-center justify-center border border-purple-400 cursor-pointer rounded-sm bg-purple-200 hover:bg-purple-300 transition-transform duration-200", flippedIndices.includes(index) || matchedIndices.includes(index) ? 'rotate-y-180' : '')}
               onClick={() => handleFlip(index)}
             >
               {(flippedIndices.includes(index) || matchedIndices.includes(index)) ? (
