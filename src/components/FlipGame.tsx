@@ -50,7 +50,7 @@ const FlipGame: FC = (): ReactElement => {
 
         <section className="text-center text-purple-700">
           <h1 className="text-6xl font-bold mb-2">Flippo</h1>
-          <div className="text-gray-600">A Memory Game <img className="w-3 h-3 inline cursor-pointer align-baseline" alt="info" src="/info.svg" onClick={() => setShowInstructions(true)} /></div>
+          <div className="text-gray-600">A Memory Game <img className="w-3 h-3 inline cursor-pointer align-baseline" alt="info" title="Instructions" src="/info.svg" onClick={() => setShowInstructions(true)} /></div>
         </section>
 
         <section className="border-4 border-purple-600 grid grid-cols-4 gap-1 p-1 bg-white rounded-md">
