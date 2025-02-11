@@ -46,7 +46,7 @@ const FlipGame: FC = (): ReactElement => {
   return (
     <>
       {showInstructions && <Instructions onStart={setupGame} />}
-      <main className="flex flex-col gap-8 items-center py-16 bg-purple-100">
+      <main className="flex flex-col gap-8 items-center py-16 bg-purple-100 min-h-screen">
 
         <section className="text-center text-purple-700">
           <h1 className="text-6xl font-bold mb-2">Flippo</h1>
